@@ -6,13 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import Container from "./Components/Container";
 import SignIn from "./Components/Pages/SignIn";
 import SignUp from "./Components/Pages/SignUp";
+import Article from "./Components/Pages/Article";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
     {/* <Container /> */}
-    <SignUp />
+    {/* <SignUp /> */}
+    <Article />
   </React.StrictMode>
 );
 
