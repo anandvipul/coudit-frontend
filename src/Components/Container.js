@@ -1,4 +1,6 @@
 import React from "react";
+import "./style.css";
+import Home from "./Pages/Home";
 
 class Container extends React.Component {
   constructor(props) {
@@ -7,7 +9,11 @@ class Container extends React.Component {
   }
 
   render() {
-    return <></>;
+    return (
+      <>
+        <Home />
+      </>
+    );
   }
 }
 
