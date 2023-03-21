@@ -219,6 +219,10 @@ footer {
   color: rgb(207, 206, 206);
 }
 
+input:invalid {
+  color: red;
+}
+
 form {
   display: flex;
   flex-direction: column;
