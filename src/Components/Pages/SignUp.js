@@ -4,8 +4,6 @@ import Footer from "../Elements/Footer";
 export default function SignUn(props) {
   return (
     <>
-      <Header />
-
       <section className="center sign-up">
         <h1 style={{ marginBottom: 0, marginTop: "3rem" }}>Sign up</h1>
         <p style={{ marginBottom: "2rem" }}>Have an account ?</p>

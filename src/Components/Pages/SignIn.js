@@ -4,8 +4,6 @@ import Footer from "../Elements/Footer";
 export default function SignIn(props) {
   return (
     <>
-      <Header />
-
       <section className="center sign-in">
         <h1 style={{ marginBottom: 0, marginTop: "3rem" }}>Sign in</h1>
         <p style={{ marginBottom: "2rem" }}>need an account ?</p>

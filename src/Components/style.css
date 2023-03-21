@@ -30,6 +30,15 @@ p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.active {
+  border-top: 2px solid grey;
+}
+
 /* Header Links Start */
 
 .nav-links {
@@ -119,11 +128,6 @@ main {
 .feed-title h4 {
   margin: 0 1rem;
   font-weight: 300;
-}
-
-.selected-title {
-  padding: 1rem 2rem;
-  border-bottom: 2px solid grey;
 }
 
 .post-section-container {
