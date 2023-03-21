@@ -35,6 +35,36 @@ let helperFunction = {
       });
     return dataResult;
   },
+  signUpUser: async (body) => {
+    let regBody = { user: { ...body } };
+    console.log(regBody);
+    let dataUser = {};
+    await fetch("https://api.realworld.io/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(regBody),
+    })
+      .then((data) => data.json())
+      .then((data) => (dataUser = data));
+    return dataUser;
+  },
+  signInUser: async (body) => {
+    let regBody = { user: { ...body } };
+    console.log(regBody);
+    let dataUser = {};
+    await fetch("https://api.realworld.io/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(regBody),
+    })
+      .then((data) => data.json())
+      .then((data) => (dataUser = data));
+    return dataUser;
+  },
 };
 
 export default helperFunction;
