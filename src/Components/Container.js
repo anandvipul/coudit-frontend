@@ -27,10 +27,11 @@ class Container extends React.Component {
         },
         () => {
           console.log(this.state);
-          <Navigate replace to="/" />;
+          localStorage.setItem("user", JSON.stringify(this.state.user));
         }
       );
     });
+    <Navigate to="/" user={this.state.user} />;
   };
 
   handleSignUp = (body) => {
@@ -40,6 +41,10 @@ class Container extends React.Component {
     });
   };
 
+  handleConditionalRoutes = () => {
+    return localStorage.getItem("user") !== null;
+  };
+
   render() {
     return (
       <>
@@ -47,13 +52,12 @@ class Container extends React.Component {
           <Header />
 
           <Routes>
-            {this.state.user.token ? (
-              <>
-                <Route path="/" element={<HomePrivate />} />
-              </>
-            ) : (
-              <></>
-            )}
+            <Route
+              path="/"
+              element={
+                this.handleConditionalRoutes() ? <HomePrivate /> : <Home />
+              }
+            />
             <Route path="/" element={<Home />} />
             <Route
               path="/signin"
