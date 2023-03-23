@@ -1,12 +1,9 @@
+import { NavLink } from "react-router-dom";
 import React from "react";
+import helperFunction from "../../HelperFunctions/HelperFunctions";
+import Main from "../../Elements/Main";
 
-import helperFunction from "../HelperFunctions/HelperFunctions";
-import Hero from "../Elements/Hero";
-import Main from "../Elements/Main";
-import Footer from "../Elements/Footer";
-import Header from "../Elements/Header";
-
-class Home extends React.Component {
+class HomePrivate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +11,7 @@ class Home extends React.Component {
       tags: [],
       activeMode: "global",
       activeTag: "",
+      user: {} || this.props.user,
     };
   }
 
@@ -76,12 +74,37 @@ class Home extends React.Component {
       );
     });
   };
-
   render() {
     return (
       <>
-        <Header />
-        <Hero />
+        <header className="center">
+          <nav className="safe-side">
+            <div className="logo">coudit</div>
+            <ul className="nav-links">
+              <li className="link">
+                <NavLink replace to="/">
+                  Home
+                </NavLink>
+              </li>
+              <li className="link">
+                <NavLink to="/compose">New Post</NavLink>
+              </li>
+              <li className="link">
+                <NavLink to="/settings">Settings</NavLink>
+              </li>
+              <li className="link">
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+              <li className="link">
+                <form onSubmit={this.props.handleSignOut}>
+                  <button type="submit" className="link-btn">
+                    Sign Out
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </nav>
+        </header>
         <Main
           tags={this.state.tags}
           activeMode={this.state.activeMode}
@@ -89,10 +112,9 @@ class Home extends React.Component {
           activeModeChanger={this.modeChanger}
           posts={this.state.posts}
         />
-        <Footer />
       </>
     );
   }
 }
 
-export default Home;
+export default HomePrivate;

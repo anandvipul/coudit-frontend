@@ -6,9 +6,15 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modeSelected: "global",
       posts: [] || this.props.posts,
     };
+  }
+  componentDidMount() {
+    console.log("Mounted", this.props);
+  }
+
+  componentDidUpdate() {
+    console.log("Updated", this.props);
   }
 
   render() {
@@ -19,33 +25,39 @@ class Main extends React.Component {
             <div className="feed-title">
               <h4
                 className={`${
-                  this.state.modeSelected === "global" ? "active" : ""
+                  this.props.activeMode === "global" ? "active" : ""
                 }`}
+                onClick={() => {
+                  this.props.activeModeChanger("global");
+                }}
               >
                 Global Feed
               </h4>
               <h4
                 className={`${
-                  this.state.modeSelected === "tags" ? "active" : ""
+                  this.props.activeMode === "tags" ? "active" : ""
                 }`}
+                onClick={() => {
+                  this.props.activeModeChanger("tags");
+                }}
               >
                 #tag-item
               </h4>
             </div>
             <div className="post-container">
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
-              <Post />
+              {this.props.posts.map((item, index) => {
+                return (
+                  <>
+                    <Post key={index} post={item} />
+                  </>
+                );
+              })}
             </div>
           </section>
-          <Aside />
+          <Aside
+            tags={this.props.tags}
+            activeTagHandler={this.props.activeTagHandler}
+          />
         </main>
       </>
     );

@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import "./index.css";
-import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 import Container from "./Components/Container";
-import SignIn from "./Components/Pages/SignIn";
-import SignUp from "./Components/Pages/SignUp";
-import Article from "./Components/Pages/Article";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    {/* <App /> */}
-    <Container />
-  </React.StrictMode>
+  // <React.StrictMode>
+  //   {/* <App /> */}
+
+  // </React.StrictMode>
+  <Container />
 );
 
 // If you want to start measuring performance in your app, pass a function
