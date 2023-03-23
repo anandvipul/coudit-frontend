@@ -4,6 +4,7 @@ import helperFunction from "../HelperFunctions/HelperFunctions";
 import Hero from "../Elements/Hero";
 import Main from "../Elements/Main";
 import Footer from "../Elements/Footer";
+import Header from "../Elements/Header";
 
 class Home extends React.Component {
   constructor(props) {
@@ -79,6 +80,7 @@ class Home extends React.Component {
   render() {
     return (
       <>
+        <Header />
         <Hero />
         <Main
           tags={this.state.tags}

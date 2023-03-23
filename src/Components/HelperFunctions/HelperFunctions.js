@@ -65,6 +65,14 @@ let helperFunction = {
       .then((data) => (dataUser = data));
     return dataUser;
   },
+  isSignedIn: () => {
+    console.log(JSON.parse(localStorage.getItem("user")));
+    // return this.state.user.token !== null;
+    return localStorage.getItem("user") !== null;
+  },
+  signOutUser: async () => {
+    return localStorage.removeItem("user");
+  },
 };
 
 export default helperFunction;

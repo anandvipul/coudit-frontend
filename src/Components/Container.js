@@ -8,7 +8,8 @@ import Main from "./Elements/Main";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import helperFunction from "./HelperFunctions/HelperFunctions";
-import PrivateRoutes from "./Pages/PrivateRouter";
+import SignOut from "./Pages/Private/SignOut";
+
 import HomePrivate from "./Pages/Private/HomePrivate";
 
 class Container extends React.Component {
@@ -16,56 +17,121 @@ class Container extends React.Component {
     super(props);
     this.state = {
       user: {},
+      isSignedIn: false,
+      loginError: "",
+      signUpError: "",
     };
   }
 
-  handleSignIn = (body) => {
-    helperFunction.signInUser(body).then((data) => {
-      this.setState(
-        {
+  handleSignIn = async (body) => {
+    helperFunction.signInUser(body).then(async (data) => {
+      if (data.errors) {
+        console.log(data);
+        this.setState({
+          isSignedIn: false,
+          loginError: "email or password" + data.errors["email or password"],
+        });
+      } else {
+        await localStorage.setItem("user", JSON.stringify(data));
+        this.setState({
           user: { ...data.user },
-        },
-        () => {
-          console.log(this.state);
-          localStorage.setItem("user", JSON.stringify(this.state.user));
-        }
-      );
+          isSignedIn: true,
+        });
+      }
     });
-    <Navigate to="/" user={this.state.user} />;
   };
 
   handleSignUp = (body) => {
     // console.log(body);
-    helperFunction.signUpUser(body).then((data) => {
-      console.log(data);
+    helperFunction.signUpUser(body).then(async (data) => {
+      if (data.errors) {
+        console.log(data);
+        this.setState({
+          isSignedIn: false,
+          signUpError:
+            "email" +
+            data.errors["email"] +
+            "username" +
+            data.errors["username"],
+        });
+      } else {
+        await localStorage.setItem("user", JSON.stringify(data));
+        this.setState({
+          user: { ...data.user },
+          isSignedIn: true,
+        });
+      }
     });
   };
 
-  handleConditionalRoutes = () => {
-    return localStorage.getItem("user") !== null;
+  handleSignOut = async (event) => {
+    event.preventDefault();
+    helperFunction
+      .signOutUser()
+      .then(async () => this.setState({ isSignedIn: false }));
+  };
+
+  isSignedIn = () => {
+    // console.log(JSON.parse(localStorage.getItem("user")).user);
+    // return this.state.user.token !== null;
+
+    let data = JSON.parse(localStorage.getItem("user"));
+    if (data !== null) {
+      console.log(data);
+
+      if (data.user !== undefined) {
+        console.log(data.user);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+    // return JSON.parse(localStorage.getItem("user")) !== null;
   };
 
   render() {
+    console.log("rendered container");
     return (
       <>
         <BrowserRouter>
-          <Header />
-
           <Routes>
             <Route
+              exact
               path="/"
               element={
-                this.handleConditionalRoutes() ? <HomePrivate /> : <Home />
+                this.isSignedIn() ? (
+                  <HomePrivate
+                    handleSignOut={this.handleSignOut}
+                    user={this.state.user}
+                  />
+                ) : (
+                  <Home />
+                )
               }
             />
-            <Route path="/" element={<Home />} />
+
             <Route
               path="/signin"
-              element={<SignIn onSubmit={this.handleSignIn} />}
+              element={
+                <SignIn
+                  onSubmit={this.handleSignIn}
+                  isSignedIn={this.isSignedIn}
+                  errors={this.state.loginError}
+                />
+              }
             />
             <Route
               path="/signup"
-              element={<SignUp onSubmit={this.handleSignUp} />}
+              element={
+                <SignUp
+                  onSubmit={this.handleSignUp}
+                  isSignedIn={this.isSignedIn}
+                  errors={this.state.signUpError}
+                />
+              }
             />
           </Routes>
         </BrowserRouter>
