@@ -189,6 +189,40 @@ let helperFunction = {
     console.log(dataUser);
     return dataUser;
   },
+  fetchArticle: async (slug, tokenInp) => {
+    let url = `https://api.realworld.io/api/articles/${slug}`;
+    // let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    let dataArticle = {};
+    await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataArticle = data;
+      });
+    console.log(dataArticle);
+    return dataArticle;
+  },
+  favArticle: async (slug, tokenInp) => {
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    let dataArticle = {};
+    await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${token}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataArticle = data;
+      });
+    console.log(dataArticle);
+    return dataArticle;
+  },
 };
 
 export default helperFunction;

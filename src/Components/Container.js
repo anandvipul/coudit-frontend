@@ -13,6 +13,7 @@ import HomePrivate from "./Pages/Private/HomePrivate";
 import Compose from "./Pages/Private/Compose";
 import Settings from "./Pages/Private/Settings";
 import Profile from "./Pages/Private/Profile";
+import IndependentArticle from "./Pages/IndependentArticle";
 
 class Container extends React.Component {
   constructor(props) {
@@ -137,6 +138,15 @@ class Container extends React.Component {
               }
             />
 
+            <Route
+              path="/article/:slug"
+              element={
+                <IndependentArticle
+                  isSignedIn={this.isSignedIn}
+                  signOutUser={this.signOutUser}
+                />
+              }
+            />
             <Route
               exact
               path="/settings"
