@@ -13,7 +13,6 @@ let helperFunction = {
   },
   fetchArticlesTag: async (tag) => {
     let dataResult = [];
-    let url = "https://api.realworld.io/api/articles?tag=" + tag;
     await fetch(`https://api.realworld.io/api/articles?tag=${tag}`, {
       method: "GET",
     })
@@ -72,6 +71,34 @@ let helperFunction = {
   },
   signOutUser: async () => {
     return localStorage.removeItem("user");
+  },
+  fetchUserArticle: async (username, token) => {
+    let dataResult = [];
+    console.log(token);
+    await fetch(`https://api.realworld.io/api/articles?author=ajax@ajax.com`, {
+      method: "GET",
+      "content-type": "application/json",
+      Authorization: `Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFqYXhAYWpheC5jb20iLCJ1c2VybmFtZSI6ImFqYXhAYWpheC5jb20iLCJpYXQiOjE2Nzk2NTEwMjUsImV4cCI6MTY4NDgzNTAyNX0.K3o8_qAPxaapl7_cY-AN6N3Z4Gq5arH0bPrYR4vDcio`,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
+  },
+  fetchFavArticle: async (username, token) => {
+    let dataResult = [];
+    await fetch(`https://api.realworld.io/api/articles?favorited=${username}`, {
+      method: "GET",
+      Authorization: `Token ${token}`,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
   },
 };
 

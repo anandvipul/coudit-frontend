@@ -20,7 +20,7 @@ class Main extends React.Component {
   render() {
     return (
       <>
-        <main className="center">
+        <main className="center main-section-col">
           <section className="post-section-container">
             <div className="feed-title">
               <h4
@@ -41,7 +41,7 @@ class Main extends React.Component {
                   this.props.activeModeChanger("tags");
                 }}
               >
-                #tag-item
+                {this.props.activeTag ? `#${this.props.activeTag}` : ""}
               </h4>
             </div>
             <div className="post-container">

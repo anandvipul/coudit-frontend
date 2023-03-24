@@ -11,6 +11,9 @@ import helperFunction from "./HelperFunctions/HelperFunctions";
 import SignOut from "./Pages/Private/SignOut";
 
 import HomePrivate from "./Pages/Private/HomePrivate";
+import Compose from "./Pages/Private/Compose";
+import Settings from "./Pages/Private/Settings";
+import Profile from "./Pages/Private/Profile";
 
 class Container extends React.Component {
   constructor(props) {
@@ -98,6 +101,7 @@ class Container extends React.Component {
       <>
         <BrowserRouter>
           <Routes>
+            {/* Protected Routes Begin */}
             <Route
               exact
               path="/"
@@ -113,6 +117,56 @@ class Container extends React.Component {
               }
             />
 
+            <Route
+              exact
+              path="/compose"
+              element={
+                this.isSignedIn() ? (
+                  <Compose
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/settings"
+              element={
+                this.isSignedIn() ? (
+                  <Settings
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/profile"
+              element={
+                this.isSignedIn() ? (
+                  <Profile
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
             <Route
               path="/signin"
               element={
