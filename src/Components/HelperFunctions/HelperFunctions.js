@@ -65,20 +65,35 @@ let helperFunction = {
     return dataUser;
   },
   isSignedIn: () => {
-    console.log(JSON.parse(localStorage.getItem("user")));
-    // return this.state.user.token !== null;
-    return localStorage.getItem("user") !== null;
+    let data = JSON.parse(localStorage.getItem("user"));
+    if (data !== null) {
+      // console.log(data);
+
+      if (data.user !== undefined) {
+        // console.log(data.user);
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   },
   signOutUser: async () => {
     return localStorage.removeItem("user");
   },
-  fetchUserArticle: async (username, token) => {
+  fetchUserArticle: async (usernameInp, tokenInp) => {
     let dataResult = [];
-    console.log(token);
-    await fetch(`https://api.realworld.io/api/articles?author=ajax@ajax.com`, {
+    // console.log(token);
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    let username =
+      usernameInp || JSON.parse(localStorage.getItem("user")).user.username;
+    await fetch(`https://api.realworld.io/api/articles?author=${username}`, {
       method: "GET",
       "content-type": "application/json",
-      Authorization: `Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFqYXhAYWpheC5jb20iLCJ1c2VybmFtZSI6ImFqYXhAYWpheC5jb20iLCJpYXQiOjE2Nzk2NTEwMjUsImV4cCI6MTY4NDgzNTAyNX0.K3o8_qAPxaapl7_cY-AN6N3Z4Gq5arH0bPrYR4vDcio`,
+      headers: {
+        authorization: `Token ${token}`,
+      },
     })
       .then((data) => data.json())
       .then((data) => {
@@ -87,11 +102,16 @@ let helperFunction = {
       });
     return dataResult;
   },
-  fetchFavArticle: async (username, token) => {
+  fetchFavArticle: async (usernameInp, tokenInp) => {
     let dataResult = [];
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    let username =
+      usernameInp || JSON.parse(localStorage.getItem("user")).user.username;
     await fetch(`https://api.realworld.io/api/articles?favorited=${username}`, {
       method: "GET",
-      Authorization: `Token ${token}`,
+      headers: {
+        authorization: `Token ${token}`,
+      },
     })
       .then((data) => data.json())
       .then((data) => {
@@ -99,6 +119,75 @@ let helperFunction = {
         console.log(dataResult);
       });
     return dataResult;
+  },
+  followUser: async (username, tokenInp) => {
+    let dataResult = [];
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    await fetch(`https://api.realworld.io/api/profiles/${username}/follow`, {
+      method: "POST",
+      headers: {
+        authorization: `Token ${token}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
+  },
+  unFollowuser: async (username, tokenInp) => {
+    let dataResult = [];
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    await fetch(`https://api.realworld.io/api/profiles/${username}/follow`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Token ${token}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
+  },
+  publishArticle: async (body, tokenInp) => {
+    let regBody = { article: { ...body } };
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    console.log(regBody);
+    let dataArticle = {};
+    await fetch("https://api.realworld.io/api/articles", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(regBody),
+    })
+      .then((data) => data.json())
+      .then((data) => (dataArticle = data));
+    console.log(dataArticle);
+    return dataArticle;
+  },
+  updateProfile: async (body, tokenInp) => {
+    // let { image, username, bio, email, password } = body;
+    let regBody = { user: { ...body } };
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    console.log(regBody);
+    let dataUser = {};
+    await fetch("https://api.realworld.io/api/user", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(regBody),
+    })
+      .then((data) => data.json())
+      .then((data) => (dataUser = data));
+    console.log(dataUser);
+    return dataUser;
   },
 };
 

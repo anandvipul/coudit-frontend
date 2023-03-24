@@ -8,8 +8,9 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       activeTab: "",
-      selfAuthorPost: [],
-      favPost: [],
+      post: [],
+
+      user: props.user || JSON.parse(localStorage.getItem("user")).user,
     };
   }
 
@@ -18,14 +19,14 @@ class Profile extends React.Component {
       helperFunction
         .fetchFavArticle(this.props.user.username, this.props.user.token)
         .then((data) => {
-          this.setState({ favPost: data.articles });
+          this.setState({ post: data.articles });
         });
     }
     if (value === "yourarticles") {
       helperFunction
         .fetchUserArticle(this.props.user.username, this.props.user.token)
         .then((data) => {
-          this.setState({ selfAuthorPost: data.articles });
+          this.setState({ post: data.articles });
         });
     }
     this.setState({
@@ -38,18 +39,22 @@ class Profile extends React.Component {
     helperFunction
       .fetchUserArticle(this.props.user.username, this.props.user.token)
       .then((data) => {
-        this.setState({ selfAuthorPost: data.articles });
+        this.setState({ post: data.articles });
       });
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <>
         <PrivateHeader handleSignOut={this.props.handleSignOut} />
         <main>
           <section className="profile-header hero">
-            <img src={`${this.props.user.image}`} alt="profile-pic" />
+            <img
+              className="profile-pic"
+              src={`${this.props.user.image}`}
+              alt="profile-pic"
+            />
             <h1>{this.props.user.username}</h1>
           </section>
           <section className="profile-article-container center">
@@ -76,7 +81,7 @@ class Profile extends React.Component {
               </h4>
             </div>
             <div className="post-container">
-              {this.state.selfAuthorPost.map((item, index) => {
+              {this.state.post.map((item, index) => {
                 return (
                   <>
                     <Post key={index} post={item} />

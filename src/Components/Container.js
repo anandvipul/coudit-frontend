@@ -1,14 +1,13 @@
 import React from "react";
 import "./style.css";
 import Home from "./Pages/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Header from "./Elements/Header";
-import Hero from "./Elements/Hero";
-import Main from "./Elements/Main";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import helperFunction from "./HelperFunctions/HelperFunctions";
-import SignOut from "./Pages/Private/SignOut";
+
+import UserProfile from "./Pages/UserProfile";
 
 import HomePrivate from "./Pages/Private/HomePrivate";
 import Compose from "./Pages/Private/Compose";
@@ -80,10 +79,10 @@ class Container extends React.Component {
 
     let data = JSON.parse(localStorage.getItem("user"));
     if (data !== null) {
-      console.log(data);
+      // console.log(data);
 
       if (data.user !== undefined) {
-        console.log(data.user);
+        // console.log(data.user);
         return true;
       } else {
         return false;
@@ -115,6 +114,10 @@ class Container extends React.Component {
                   <Home />
                 )
               }
+            />
+            <Route
+              path="/:username"
+              element={<UserProfile handleSignOut={this.handleSignOut} />}
             />
 
             <Route

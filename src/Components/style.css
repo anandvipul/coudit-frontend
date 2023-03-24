@@ -83,7 +83,7 @@ nav {
 .hero {
   text-align: center;
   color: white;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgb(83, 23, 23);
   padding: 1rem 0;
 }
 
@@ -263,4 +263,9 @@ textarea {
 
 .profile-article-container {
   margin-top: 1rem;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
 }
