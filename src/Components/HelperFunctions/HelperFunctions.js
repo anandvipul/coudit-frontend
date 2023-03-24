@@ -206,6 +206,23 @@ let helperFunction = {
     console.log(dataArticle);
     return dataArticle;
   },
+  favArticle: async (slug, tokenInp) => {
+    let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
+    let dataArticle = {};
+    await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Token ${token}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataArticle = data;
+      });
+    console.log(dataArticle);
+    return dataArticle;
+  },
 };
 
 export default helperFunction;
