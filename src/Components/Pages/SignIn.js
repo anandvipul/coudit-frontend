@@ -34,7 +34,7 @@ class SignIn extends React.Component {
         <section className="center sign-in">
           <h1 style={{ marginBottom: 0, marginTop: "3rem" }}>Sign in</h1>
           <p style={{ marginBottom: "2rem" }}>need an account ?</p>
-          <div className="signin-container center">
+          <div className="form-container center">
             <form onSubmit={this.handleSubmitObject}>
               <span>{this.props.errors}</span>
               <input
@@ -57,7 +57,7 @@ class SignIn extends React.Component {
                   this.handleChange(event);
                 }}
               />
-              <button type="submit" className="signin-btn">
+              <button type="submit" className="btn">
                 Sign in
               </button>
             </form>

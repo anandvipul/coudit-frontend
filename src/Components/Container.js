@@ -1,16 +1,18 @@
 import React from "react";
 import "./style.css";
 import Home from "./Pages/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Header from "./Elements/Header";
-import Hero from "./Elements/Hero";
-import Main from "./Elements/Main";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import helperFunction from "./HelperFunctions/HelperFunctions";
-import SignOut from "./Pages/Private/SignOut";
+
+import UserProfile from "./Pages/UserProfile";
 
 import HomePrivate from "./Pages/Private/HomePrivate";
+import Compose from "./Pages/Private/Compose";
+import Settings from "./Pages/Private/Settings";
+import Profile from "./Pages/Private/Profile";
 
 class Container extends React.Component {
   constructor(props) {
@@ -77,10 +79,10 @@ class Container extends React.Component {
 
     let data = JSON.parse(localStorage.getItem("user"));
     if (data !== null) {
-      console.log(data);
+      // console.log(data);
 
       if (data.user !== undefined) {
-        console.log(data.user);
+        // console.log(data.user);
         return true;
       } else {
         return false;
@@ -98,6 +100,7 @@ class Container extends React.Component {
       <>
         <BrowserRouter>
           <Routes>
+            {/* Protected Routes Begin */}
             <Route
               exact
               path="/"
@@ -112,7 +115,61 @@ class Container extends React.Component {
                 )
               }
             />
+            <Route
+              path="/:username"
+              element={<UserProfile handleSignOut={this.handleSignOut} />}
+            />
 
+            <Route
+              exact
+              path="/compose"
+              element={
+                this.isSignedIn() ? (
+                  <Compose
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/settings"
+              element={
+                this.isSignedIn() ? (
+                  <Settings
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
+
+            <Route
+              exact
+              path="/profile"
+              element={
+                this.isSignedIn() ? (
+                  <Profile
+                    user={this.state.user}
+                    handleSignOut={this.handleSignOut}
+                  />
+                ) : (
+                  <>
+                    <Home />
+                  </>
+                )
+              }
+            />
             <Route
               path="/signin"
               element={

@@ -88,6 +88,7 @@ class Home extends React.Component {
           activeTagHandler={this.activeTagChanger}
           activeModeChanger={this.modeChanger}
           posts={this.state.posts}
+          activeTag={this.state.activeTag}
         />
         <Footer />
       </>

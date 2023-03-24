@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Post(props) {
   return (
     <>
@@ -9,7 +11,12 @@ export default function Post(props) {
             alt="profile"
           />
           <div className="name-container">
-            <span className="author-name">{props.post.author.username}</span>
+            <Link
+              to={`/@${props.post.author.username}`}
+              state={{ user: props.post.author }}
+            >
+              <span className="author-name">{props.post.author.username}</span>
+            </Link>
             <span className="article-date">{props.post.createdAt}</span>
           </div>
         </div>

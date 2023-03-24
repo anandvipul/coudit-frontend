@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 import helperFunction from "../../HelperFunctions/HelperFunctions";
 import Main from "../../Elements/Main";
+import PrivateHeader from "./PrivateHeader";
 
 class HomePrivate extends React.Component {
   constructor(props) {
@@ -77,40 +78,14 @@ class HomePrivate extends React.Component {
   render() {
     return (
       <>
-        <header className="center">
-          <nav className="safe-side">
-            <div className="logo">coudit</div>
-            <ul className="nav-links">
-              <li className="link">
-                <NavLink replace to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="link">
-                <NavLink to="/compose">New Post</NavLink>
-              </li>
-              <li className="link">
-                <NavLink to="/settings">Settings</NavLink>
-              </li>
-              <li className="link">
-                <NavLink to="/profile">Profile</NavLink>
-              </li>
-              <li className="link">
-                <form onSubmit={this.props.handleSignOut}>
-                  <button type="submit" className="link-btn">
-                    Sign Out
-                  </button>
-                </form>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <PrivateHeader handleSignOut={this.props.handleSignOut} />
         <Main
           tags={this.state.tags}
           activeMode={this.state.activeMode}
           activeTagHandler={this.activeTagChanger}
           activeModeChanger={this.modeChanger}
           posts={this.state.posts}
+          activeTag={this.state.activeTag}
         />
       </>
     );
