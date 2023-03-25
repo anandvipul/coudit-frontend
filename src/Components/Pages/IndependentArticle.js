@@ -43,6 +43,10 @@ export default function IndependentArticle(props) {
         <h4>{article.description}</h4>
         <p>{article.body}</p>
       </section>
+      <section className="comment-container">
+        <div className="prev-comment"></div>
+        <div className="add-comment"></div>
+      </section>
     </>
   );
 }
