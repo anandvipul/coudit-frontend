@@ -1,4 +1,21 @@
 let helperFunction = {
+  feedArticles: async (tokenInp) => {
+    let dataResult = [];
+    let token = JSON.parse(localStorage.getItem("user")).user.token;
+    await fetch("https://api.realworld.io/api/articles/?limit=10&offset=0", {
+      method: "GET",
+      headers: {
+        authorization: `Token ${token}`,
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        dataResult = data;
+      });
+    console.log(dataResult);
+    return dataResult;
+  },
   fetchArticles: async () => {
     let dataResult = [];
     await fetch("https://api.realworld.io/api/articles", {
@@ -9,6 +26,7 @@ let helperFunction = {
         console.log(data);
         dataResult = data;
       });
+    console.log(dataResult);
     return dataResult;
   },
   fetchArticlesTag: async (tag) => {
@@ -209,19 +227,78 @@ let helperFunction = {
   favArticle: async (slug, tokenInp) => {
     let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
     let dataArticle = {};
-    await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
-      method: "POST",
+
+    await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         authorization: `Token ${token}`,
       },
     })
       .then((data) => data.json())
-      .then((data) => {
-        dataArticle = data;
+      .then(async (data) => {
+        if (data.article.favorited) {
+          await fetch(
+            `https://api.realworld.io/api/articles/${slug}/favorite`,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `Token ${token}`,
+              },
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              dataArticle = data;
+            });
+        } else {
+          await fetch(
+            `https://api.realworld.io/api/articles/${slug}/favorite`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `Token ${token}`,
+              },
+            }
+          )
+            .then((data) => data.json())
+            .then((data) => {
+              dataArticle = data;
+            });
+        }
       });
     console.log(dataArticle);
     return dataArticle;
+  },
+  fetchMyArticlesNSI: async (username) => {
+    let dataResult = [];
+
+    await fetch(`https://api.realworld.io/api/articles?author=${username}`, {
+      method: "GET",
+      "content-type": "application/json",
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
+  },
+  fetchMyFavArticlesNSI: async (username) => {
+    let dataResult = [];
+
+    await fetch(`https://api.realworld.io/api/articles?favorited=${username}`, {
+      method: "GET",
+      "content-type": "application/json",
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        dataResult = data;
+        console.log(dataResult);
+      });
+    return dataResult;
   },
 };
 

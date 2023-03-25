@@ -110,6 +110,7 @@ class Container extends React.Component {
                   <HomePrivate
                     handleSignOut={this.handleSignOut}
                     user={this.state.user}
+                    favArticle={this.favArticle}
                   />
                 ) : (
                   <Home />

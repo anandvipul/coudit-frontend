@@ -165,7 +165,23 @@ nav {
 .post-info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+}
+.post-author-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.post-fav-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.fav-item {
+  display: block;
 }
 
 .name-container {
