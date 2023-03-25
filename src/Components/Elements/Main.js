@@ -48,7 +48,11 @@ class Main extends React.Component {
               {this.props.posts.map((item, index) => {
                 return (
                   <>
-                    <Post key={index} post={item} />
+                    <Post
+                      key={index}
+                      post={item}
+                      favArticleHandler={this.props.favArticleHandler}
+                    />
                   </>
                 );
               })}

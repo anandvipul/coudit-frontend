@@ -11,7 +11,6 @@ export default function UserProfile(props) {
 
   let { state } = useLocation();
   let [info, setInfo] = useState({ ...state.user });
-  //   console.log("Info", info);
 
   function switchFav(value) {
     changeActiveState(value);
@@ -22,13 +21,21 @@ export default function UserProfile(props) {
   }
 
   useEffect(() => {
-    // console.log("Active State Changed");
+    console.log("Info", info.username);
     state !== undefined
       ? activeState === "myArticles"
-        ? helperFunction.fetchUserArticle(info.username).then((data) => {
+        ? helperFunction.isSignedIn()
+          ? helperFunction.fetchUserArticle(info.username).then((data) => {
+              setPosts(data.articles);
+            })
+          : helperFunction.fetchMyArticlesNSI(info.username).then((data) => {
+              setPosts(data.articles);
+            })
+        : helperFunction.isSignedIn()
+        ? helperFunction.fetchFavArticle(info.username).then((data) => {
             setPosts(data.articles);
           })
-        : helperFunction.fetchFavArticle(info.username).then((data) => {
+        : helperFunction.fetchMyFavArticlesNSI(info.username).then((data) => {
             setPosts(data.articles);
           })
       : setPosts({ posts: [] });

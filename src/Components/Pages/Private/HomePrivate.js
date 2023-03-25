@@ -28,7 +28,7 @@ class HomePrivate extends React.Component {
       );
     });
 
-    helperFunction.fetchArticles().then((data) => {
+    helperFunction.feedArticles().then((data) => {
       this.setState(
         (prevState) => {
           return { posts: data.articles };
@@ -75,6 +75,17 @@ class HomePrivate extends React.Component {
       );
     });
   };
+
+  shouldComponentUpdate = () => {
+    return true;
+  };
+
+  favArticle = async (slug) => {
+    helperFunction.favArticle(slug).then((data) => {
+      this.componentDidMount();
+    });
+  };
+
   render() {
     return (
       <>
@@ -86,6 +97,7 @@ class HomePrivate extends React.Component {
           activeModeChanger={this.modeChanger}
           posts={this.state.posts}
           activeTag={this.state.activeTag}
+          favArticleHandler={this.favArticle}
         />
       </>
     );
