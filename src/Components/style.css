@@ -285,3 +285,14 @@ textarea {
   width: 100px;
   height: 100px;
 }
+
+@media screen and (max-width: 600px) {
+  aside {
+    display: none;
+  }
+  .main-section-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 1rem;
+  }
+}
