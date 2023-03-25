@@ -10,11 +10,11 @@ class Main extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("Mounted", this.props);
+    // console.log("Mounted", this.props);
   }
 
   componentDidUpdate() {
-    console.log("Updated", this.props);
+    // console.log("Updated", this.props);
   }
 
   render() {

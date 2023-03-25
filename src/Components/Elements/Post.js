@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import helperFunction from "../HelperFunctions/HelperFunctions";
 export default function Post(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <article className="article-item">
@@ -55,6 +55,11 @@ export default function Post(props) {
         </div>
         <div className="post-postscript">
           <span className="postscript-item">Read More...</span>
+          <span className="tags-item">
+            {props.post.tagList.map((item) => {
+              return <> {item} </>;
+            })}
+          </span>
         </div>
       </article>
     </>

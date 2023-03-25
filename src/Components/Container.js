@@ -29,7 +29,7 @@ class Container extends React.Component {
   handleSignIn = async (body) => {
     helperFunction.signInUser(body).then(async (data) => {
       if (data.errors) {
-        console.log(data);
+        // console.log(data);
         this.setState({
           isSignedIn: false,
           loginError: "email or password" + data.errors["email or password"],
@@ -48,7 +48,7 @@ class Container extends React.Component {
     // console.log(body);
     helperFunction.signUpUser(body).then(async (data) => {
       if (data.errors) {
-        console.log(data);
+        // console.log(data);
         this.setState({
           isSignedIn: false,
           signUpError:
@@ -96,7 +96,7 @@ class Container extends React.Component {
   };
 
   render() {
-    console.log("rendered container");
+    // console.log("rendered container");
     return (
       <>
         <BrowserRouter>

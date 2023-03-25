@@ -35,12 +35,18 @@ class Profile extends React.Component {
   };
 
   componentDidMount = async () => {
-    console.log(this.props);
+    // console.log(this.props);
     helperFunction
       .fetchUserArticle(this.props.user.username, this.props.user.token)
       .then((data) => {
         this.setState({ post: data.articles });
       });
+  };
+
+  favArticle = async (slug) => {
+    helperFunction.favArticle(slug).then((data) => {
+      this.componentDidMount();
+    });
   };
 
   render() {
@@ -84,7 +90,11 @@ class Profile extends React.Component {
               {this.state.post.map((item, index) => {
                 return (
                   <>
-                    <Post key={index} post={item} />
+                    <Post
+                      key={index}
+                      post={item}
+                      favArticleHandler={this.favArticle}
+                    />
                   </>
                 );
               })}

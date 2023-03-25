@@ -10,10 +10,10 @@ let helperFunction = {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         dataResult = data;
       });
-    console.log(dataResult);
+    // console.log(dataResult);
     return dataResult;
   },
   fetchArticles: async () => {
@@ -23,10 +23,10 @@ let helperFunction = {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         dataResult = data;
       });
-    console.log(dataResult);
+    // console.log(dataResult);
     return dataResult;
   },
   fetchArticlesTag: async (tag) => {
@@ -37,7 +37,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(tag);
+        // console.log(tag);
       });
     return dataResult;
   },
@@ -54,7 +54,7 @@ let helperFunction = {
   },
   signUpUser: async (body) => {
     let regBody = { user: { ...body } };
-    console.log(regBody);
+    // console.log(regBody);
     let dataUser = {};
     await fetch("https://api.realworld.io/api/users", {
       method: "POST",
@@ -69,7 +69,7 @@ let helperFunction = {
   },
   signInUser: async (body) => {
     let regBody = { user: { ...body } };
-    console.log(regBody);
+    // console.log(regBody);
     let dataUser = {};
     await fetch("https://api.realworld.io/api/users/login", {
       method: "POST",
@@ -116,7 +116,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },
@@ -134,7 +134,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },
@@ -150,7 +150,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },
@@ -166,14 +166,14 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },
   publishArticle: async (body, tokenInp) => {
     let regBody = { article: { ...body } };
     let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
-    console.log(regBody);
+    // console.log(regBody);
     let dataArticle = {};
     await fetch("https://api.realworld.io/api/articles", {
       method: "POST",
@@ -185,14 +185,14 @@ let helperFunction = {
     })
       .then((data) => data.json())
       .then((data) => (dataArticle = data));
-    console.log(dataArticle);
+    // console.log(dataArticle);
     return dataArticle;
   },
   updateProfile: async (body, tokenInp) => {
     // let { image, username, bio, email, password } = body;
     let regBody = { user: { ...body } };
     let token = tokenInp || JSON.parse(localStorage.getItem("user")).user.token;
-    console.log(regBody);
+    // console.log(regBody);
     let dataUser = {};
     await fetch("https://api.realworld.io/api/user", {
       method: "PUT",
@@ -204,7 +204,7 @@ let helperFunction = {
     })
       .then((data) => data.json())
       .then((data) => (dataUser = data));
-    console.log(dataUser);
+    // console.log(dataUser);
     return dataUser;
   },
   fetchArticle: async (slug, tokenInp) => {
@@ -221,7 +221,7 @@ let helperFunction = {
       .then((data) => {
         dataArticle = data;
       });
-    console.log(dataArticle);
+    // console.log(dataArticle);
     return dataArticle;
   },
   favArticle: async (slug, tokenInp) => {
@@ -269,7 +269,7 @@ let helperFunction = {
             });
         }
       });
-    console.log(dataArticle);
+    // console.log(dataArticle);
     return dataArticle;
   },
   fetchMyArticlesNSI: async (username) => {
@@ -282,7 +282,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },
@@ -296,7 +296,7 @@ let helperFunction = {
       .then((data) => data.json())
       .then((data) => {
         dataResult = data;
-        console.log(dataResult);
+        // console.log(dataResult);
       });
     return dataResult;
   },

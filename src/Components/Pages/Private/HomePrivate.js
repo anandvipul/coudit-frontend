@@ -23,7 +23,7 @@ class HomePrivate extends React.Component {
           return { tags: data.tags };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });
@@ -34,14 +34,14 @@ class HomePrivate extends React.Component {
           return { posts: data.articles };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });
   }
 
   modeChanger = async (mode) => {
-    console.log(mode);
+    // console.log(mode);
 
     if (mode === "global") {
       helperFunction.fetchArticles().then((data) => {
@@ -50,7 +50,7 @@ class HomePrivate extends React.Component {
             return { posts: data.articles, activeMode: mode };
           },
           () => {
-            console.log(this.state);
+            // console.log(this.state);
           }
         );
       });
@@ -70,7 +70,7 @@ class HomePrivate extends React.Component {
           };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });

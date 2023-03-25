@@ -203,6 +203,13 @@ nav {
   font-size: 0.9rem;
   font-weight: 300;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tags-item,
+.postscript-item {
+  display: block;
 }
 
 /* Footer */

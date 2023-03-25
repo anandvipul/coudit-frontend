@@ -24,7 +24,7 @@ class Home extends React.Component {
           return { tags: data.tags };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });
@@ -35,14 +35,14 @@ class Home extends React.Component {
           return { posts: data.articles };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });
   }
 
   modeChanger = async (mode) => {
-    console.log(mode);
+    // console.log(mode);
 
     if (mode === "global") {
       helperFunction.fetchArticles().then((data) => {
@@ -51,7 +51,7 @@ class Home extends React.Component {
             return { posts: data.articles, activeMode: mode };
           },
           () => {
-            console.log(this.state);
+            // console.log(this.state);
           }
         );
       });
@@ -71,7 +71,7 @@ class Home extends React.Component {
           };
         },
         () => {
-          console.log(this.state);
+          // console.log(this.state);
         }
       );
     });
