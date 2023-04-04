@@ -23,7 +23,10 @@ let utilityFunctions = {
         body: JSON.stringify(regBody),
       })
         .then((data) => data.json())
-        .then((data) => (dataUser = data));
+        .then((data) => {
+          dataUser = data;
+          localStorage.setItem("user", dataUser);
+        });
       return dataUser;
     },
     registerUser: async (body) => {
