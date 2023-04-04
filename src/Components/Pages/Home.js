@@ -18,6 +18,7 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
+    console.log(helperFunction.isSignedIn());
     helperFunction.fetchTags().then((data) => {
       this.setState(
         (prevState) => {
