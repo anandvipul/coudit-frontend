@@ -275,6 +275,29 @@ let utilityFunctions = {
         return articlesData;
       }
     },
+    getArticle: async (slug) => {
+      let articleData = {};
+      if (utilityFunctions.admin.isSignedIn()) {
+        await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+          method: "GET",
+          headers: {
+            authorization: `Token ${
+              JSON.parse(localStorage.getItem("user")).user.token
+            }`,
+          },
+        })
+          .then((data) => data.json())
+          .then((data) => (articleData = data));
+        return articleData;
+      } else {
+        await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+          method: "GET",
+        })
+          .then((data) => data.json())
+          .then((data) => (articleData = data));
+        return articleData;
+      }
+    },
   },
 };
 
