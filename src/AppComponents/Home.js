@@ -1,6 +1,8 @@
 import React from "react";
 import { DataConsumer } from "../CustomContext/dataContext";
-import Header from "./Header";
+import Hero from "./Hero";
+import Footer from "./Footer";
+import Main from "./Main";
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,7 +15,13 @@ class Home extends React.Component {
       <div>
         <DataConsumer>
           {(state) => {
-            return <Header />;
+            return (
+              <>
+                <Hero />
+                <Main />
+                <Footer />
+              </>
+            );
           }}
         </DataConsumer>
       </div>

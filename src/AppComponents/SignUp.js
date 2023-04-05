@@ -26,9 +26,9 @@ class SignUp extends React.Component {
   };
 
   render() {
-    if (this.props.isSignedIn()) {
-      return <Navigate to="/" user={this.state.user} />;
-    }
+    // if (this.props.isSignedIn()) {
+    //   return <Navigate to="/" user={this.state.user} />;
+    // }
     return (
       <>
         <section className="center sign-in">

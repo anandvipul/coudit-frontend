@@ -21,22 +21,28 @@ function Header(props) {
                 <li className="link">
                   <NavLink to="/signup">Sign Up</NavLink>
                 </li>
-                <li className="link">
-                  <NavLink to="/compose">New Post</NavLink>
-                </li>
-                <li className="link">
-                  <NavLink to="/settings">Settings</NavLink>
-                </li>
-                <li className="link">
-                  <NavLink to="/profile">Profile</NavLink>
-                </li>
-                <li className="link">
-                  <form onSubmit={props.handleSignOut}>
-                    <button type="submit" className="link-btn">
-                      Sign Out
-                    </button>
-                  </form>
-                </li>
+                {state.data.loggedInState.state ? (
+                  <>
+                    <li className="link">
+                      <NavLink to="/compose">New Post</NavLink>
+                    </li>
+                    <li className="link">
+                      <NavLink to="/settings">Settings</NavLink>
+                    </li>
+                    <li className="link">
+                      <NavLink to="/profile">Profile</NavLink>
+                    </li>
+                    <li className="link">
+                      <form onSubmit={props.handleSignOut}>
+                        <button type="submit" className="link-btn">
+                          Sign Out
+                        </button>
+                      </form>
+                    </li>
+                  </>
+                ) : (
+                  <></>
+                )}
               </ul>
             </nav>
           </header>

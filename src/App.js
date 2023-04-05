@@ -7,19 +7,29 @@ import utilityFunctions from "./Components/HelperFunctions/HelperFunctionV0_2";
 import Home from "./AppComponents/Home";
 import SignIn from "./AppComponents/SignIn";
 import SignUp from "./AppComponents/SignUp";
+import Header from "./AppComponents/Header";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       postsHome: [],
+      postTag: [],
       tags: [],
       loggedInState: {
         state: false,
         error: "",
         user: {},
       },
+      activeMode: "global",
+      activeTag: "",
     };
   }
+
+  handleActiveMode = async (mode) => {
+    if (mode === "global") {
+      this.setState({ activeMode: mode });
+    }
+  };
 
   handleSignIn = async (body) => {
     let loggedinData = this.state.loggedInState;
@@ -71,9 +81,30 @@ class App extends React.Component {
       .then(() => this.setState({ loggedInState: { state: false, user: {} } }));
   };
 
+  activeTagHandler = async (tag) => {
+    let selectedTag = tag.target.innerText;
+    utilityFunctions.optionalProtection
+      .listArticlesByTag(selectedTag)
+      .then((data) => {
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            activeMode: "tags",
+            activeTag: selectedTag,
+            postTag: data.articles,
+          };
+        });
+      });
+  };
+
+  favArticleHandler = () => {};
+
   componentDidMount = () => {
     utilityFunctions.optionalProtection.listArticles().then((data) => {
       this.setState({ postsHome: data.articles });
+    });
+    utilityFunctions.optionalProtection.getTags().then((data) => {
+      this.setState({ tags: data.tags });
     });
   };
 
@@ -81,17 +112,26 @@ class App extends React.Component {
     if (this.state.postsHome === null || this.state.postsHome.length === 0) {
       return <LoaderScreen />;
     }
-    console.log({ data: this.state, handleSignIn: this.handleSignIn });
+    // console.log({ data: this.state, handleSignIn: this.handleSignIn });
     return (
       <div className="App">
         <BrowserRouter>
           <DataProvider
-            value={{ data: this.state, handleSignIn: this.handleSignIn }}
+            value={{
+              data: this.state,
+              handleSignIn: this.handleSignIn,
+              handleSignUp: this.handleSignUp,
+              handleSignOut: this.handleSignOut,
+              activeTagHandler: this.activeTagHandler,
+              favArticleHandler: this.favArticleHandler,
+              activeModeChanger: this.handleActiveMode,
+            }}
           >
+            <Header />
             <Routes>
               <Route exact path="/" element={<Home />}></Route>
-              {/* <Route exact path="/signin" element={<SignIn />}></Route>
-              <Route exact path="/signup" element={<SignUp />}></Route> */}
+              <Route exact path="/signin" element={<SignIn />}></Route>
+              <Route exact path="/signup" element={<SignUp />}></Route>
             </Routes>
           </DataProvider>
         </BrowserRouter>
