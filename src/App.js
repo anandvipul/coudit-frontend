@@ -10,6 +10,7 @@ import SignUp from "./AppComponents/SignUp";
 import Header from "./AppComponents/Header";
 import UserProfile from "./AppComponents/UserProfile";
 import SignOut from "./AppComponents/SignOut";
+import Compose from "./AppComponents/Compose";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -128,7 +129,12 @@ class App extends React.Component {
       });
   };
 
-  favArticleHandler = () => {};
+  favArticleHandler = (slug) => {
+    console.log(slug);
+    utilityFunctions.accessProtected.favArticleHandler(slug).then((data) => {
+      this.refresh();
+    });
+  };
 
   componentDidMount = () => {
     utilityFunctions.optionalProtection.listArticles().then((data) => {
@@ -193,6 +199,7 @@ class App extends React.Component {
                 path={"/signout"}
                 element={<SignOut handleSignOut={this.handleSignOut1} />}
               ></Route>
+              <Route exact path={"/compose"} element={<Compose />}></Route>
             </Routes>
           </DataProvider>
         </BrowserRouter>

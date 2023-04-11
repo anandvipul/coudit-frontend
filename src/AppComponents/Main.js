@@ -53,7 +53,7 @@ class Main1 extends React.Component {
                       <Post
                         key={index}
                         post={item}
-                        favArticleHandler={this.props.favArticleHandler}
+                        favArticleHandler={state.favArticleHandler}
                       />
                     );
                   })}
