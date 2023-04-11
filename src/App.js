@@ -12,6 +12,7 @@ import UserProfile from "./AppComponents/UserProfile";
 import SignOut from "./AppComponents/SignOut";
 import Compose from "./AppComponents/Compose";
 import Settings from "./AppComponents/Settings";
+import IndependentArticle from "./AppComponents/IndependentArticle";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -218,6 +219,7 @@ class App extends React.Component {
                   />
                 }
               ></Route>
+              <Route path="/article/:slug" element={<IndependentArticle />} />
             </Routes>
           </DataProvider>
         </BrowserRouter>
