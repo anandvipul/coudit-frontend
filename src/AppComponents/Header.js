@@ -39,12 +39,15 @@ function Header(props) {
                     <li className="link">
                       <NavLink to="/profile">Profile</NavLink>
                     </li>
-                    <li className="link">
+                    {/* <li className="link">
                       <form onSubmit={state.handleSignOut}>
                         <button type="submit" className="link-btn">
                           Sign Out
                         </button>
                       </form>
+                    </li> */}
+                    <li className="link">
+                      <NavLink to="/signout">Sign Out</NavLink>
                     </li>
                   </>
                 ) : (

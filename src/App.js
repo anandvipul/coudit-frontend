@@ -8,6 +8,8 @@ import Home from "./AppComponents/Home";
 import SignIn from "./AppComponents/SignIn";
 import SignUp from "./AppComponents/SignUp";
 import Header from "./AppComponents/Header";
+import UserProfile from "./AppComponents/UserProfile";
+import SignOut from "./AppComponents/SignOut";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -97,6 +99,19 @@ class App extends React.Component {
     );
   };
 
+  handleSignOut1 = async () => {
+    utilityFunctions.admin.signOutUser().then(() =>
+      this.setState(
+        (prevState) => {
+          return { loggedInState: { state: false, user: {} } };
+        },
+        () => {
+          this.refresh();
+        }
+      )
+    );
+  };
+
   activeTagHandler = async (tag) => {
     let selectedTag = tag.target.innerText;
     utilityFunctions.optionalProtection
@@ -166,6 +181,17 @@ class App extends React.Component {
                     errors={this.state.loggedInState.error}
                   />
                 }
+              ></Route>
+              <Route
+                exact
+                path={"/:username"}
+                element={<UserProfile />}
+              ></Route>
+
+              <Route
+                exact
+                path={"/signout"}
+                element={<SignOut handleSignOut={this.handleSignOut1} />}
               ></Route>
             </Routes>
           </DataProvider>

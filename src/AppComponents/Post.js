@@ -86,6 +86,7 @@ const month = [
 const day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function Post(props) {
+  // console.log(props);
   let dateCreated = new Date(props.post.createdAt);
   console.log(dateCreated.getDay());
   return (
@@ -141,7 +142,7 @@ function Post(props) {
             </div>
             <div className="post-text">
               <Link to={`/article/${props.post.slug}`}>
-                <h3 className="article-title">{props.title}</h3>
+                <h3 className="article-title">{props.post.title}</h3>
               </Link>
               <p className="article-description">{props.post.description}</p>
             </div>
