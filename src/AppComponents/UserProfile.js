@@ -33,79 +33,84 @@ function UserProfile() {
       .then((data) => modifyProfile(data));
   }
 
-  return (
-    <DataConsumer>
-      {(state) => {
-        const renderPost =
-          activeMode === "authored" ? yourArticles : yourFavourites;
-        console.log(profileData);
+  if (!profileData) {
+    return <>Loading...</>;
+  } else {
+    console.log(profileData);
+    return (
+      <DataConsumer>
+        {(state) => {
+          const renderPost =
+            activeMode === "authored" ? yourArticles : yourFavourites;
+          console.log(profileData);
 
-        return (
-          <>
-            <section className="hero safe-side">
-              <img
-                className="profile-pic"
-                src={`${profileData.image}`}
-                alt="profile-pic"
-              />
-              <h3 className="">{profileData.username}</h3>
-              {utilityFunctions.admin.isSignedIn() ? (
-                <span
-                  className="pointer"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    utilityFunctions.accessProtected
-                      .followUserHandler(username)
-                      .then((data) => modifyProfile(data.profile));
-                  }}
-                >
-                  {profileData.following ? "✅" : "☑️"}
-                </span>
-              ) : (
-                <></>
-              )}
-              <p className="blog-punch">{profileData.bio}</p>
-            </section>
-            <main className="center">
-              <section className="post-section-container">
-                <div className="feed-title">
-                  <h4
-                    className={`${activeMode === "authored" ? "active" : ""}`}
-                    onClick={() => {
-                      setMode("authored");
+          return (
+            <>
+              <section className="hero safe-side">
+                <img
+                  className="profile-pic"
+                  src={`${profileData.image}`}
+                  alt="profile-pic"
+                />
+                <h3 className="">{profileData.username}</h3>
+                {utilityFunctions.admin.isSignedIn() ? (
+                  <span
+                    className="pointer"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      utilityFunctions.accessProtected
+                        .followUserHandler(username)
+                        .then((data) => modifyProfile(data.profile));
                     }}
                   >
-                    Your Articles
-                  </h4>
-                  <h4
-                    className={`${activeMode === "fav" ? "active" : ""}`}
-                    onClick={() => {
-                      setMode("fav");
-                    }}
-                  >
-                    Your Favourites
-                  </h4>
-                </div>
-                <div className="post-container">
-                  {renderPost.map((item, index) => {
-                    return (
-                      <>
-                        <Post
-                          key={index}
-                          post={item}
-                          favArticleHandler={state.favArticleHandler}
-                        />
-                      </>
-                    );
-                  })}
-                </div>
+                    {profileData.following ? "✅" : "☑️"}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                <p className="blog-punch">{profileData.bio}</p>
               </section>
-            </main>
-          </>
-        );
-      }}
-    </DataConsumer>
-  );
+              <main className="center">
+                <section className="post-section-container">
+                  <div className="feed-title">
+                    <h4
+                      className={`${activeMode === "authored" ? "active" : ""}`}
+                      onClick={() => {
+                        setMode("authored");
+                      }}
+                    >
+                      Your Articles
+                    </h4>
+                    <h4
+                      className={`${activeMode === "fav" ? "active" : ""}`}
+                      onClick={() => {
+                        setMode("fav");
+                      }}
+                    >
+                      Your Favourites
+                    </h4>
+                  </div>
+                  <div className="post-container">
+                    {renderPost.map((item, index) => {
+                      return (
+                        <>
+                          <Post
+                            key={index}
+                            post={item}
+                            favArticleHandler={state.favArticleHandler}
+                          />
+                        </>
+                      );
+                    })}
+                  </div>
+                </section>
+              </main>
+            </>
+          );
+        }}
+      </DataConsumer>
+    );
+  }
 }
 
 export default UserProfile;

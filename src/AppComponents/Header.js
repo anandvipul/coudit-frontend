@@ -36,9 +36,7 @@ function Header(props) {
                     <li className="link">
                       <NavLink to="/settings">Settings</NavLink>
                     </li>
-                    <li className="link">
-                      <NavLink to="/profile">Profile</NavLink>
-                    </li>
+
                     {/* <li className="link">
                       <form onSubmit={state.handleSignOut}>
                         <button type="submit" className="link-btn">

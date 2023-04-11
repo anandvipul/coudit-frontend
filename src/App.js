@@ -11,6 +11,7 @@ import Header from "./AppComponents/Header";
 import UserProfile from "./AppComponents/UserProfile";
 import SignOut from "./AppComponents/SignOut";
 import Compose from "./AppComponents/Compose";
+import Settings from "./AppComponents/Settings";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -200,6 +201,16 @@ class App extends React.Component {
                 element={<SignOut handleSignOut={this.handleSignOut1} />}
               ></Route>
               <Route exact path={"/compose"} element={<Compose />}></Route>
+              <Route
+                exact
+                path={"/settings"}
+                element={
+                  <Settings
+                    handleSignOut={this.handleSignOut}
+                    user={this.state.loggedInState.user}
+                  />
+                }
+              ></Route>
             </Routes>
           </DataProvider>
         </BrowserRouter>
