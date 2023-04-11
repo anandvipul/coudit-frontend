@@ -152,6 +152,12 @@ class App extends React.Component {
     });
   };
 
+  handleDelete = async (slug) => {
+    utilityFunctions.accessProtected.deleteArticle(slug).then((data) => {
+      console.log(data);
+    });
+  };
+
   render() {
     if (this.state.postsHome === null || this.state.postsHome.length === 0) {
       return <LoaderScreen />;
@@ -169,6 +175,7 @@ class App extends React.Component {
               activeTagHandler: this.activeTagHandler,
               favArticleHandler: this.favArticleHandler,
               activeModeChanger: this.handleActiveMode,
+              handleDelete: this.handleDelete,
             }}
           >
             <Header />

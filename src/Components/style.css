@@ -27,6 +27,13 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+.seperate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 *,
 *::after,
 *::before {

@@ -3,11 +3,15 @@ import Post from "./Post";
 import { Navigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
-import helperFunction from "../Components/HelperFunctions/HelperFunctions";
 
 function UserProfile() {
   let { username } = useParams();
-  username = username.substring(1);
+  if (username[0] === "@") {
+    username = username.substring(1);
+  } else {
+    username =
+      utilityFunctions.accessProtected.currentUserLocal().user.username;
+  }
   console.log(username);
   let [yourArticles, setYourArticle] = useState([]);
   let [yourFavourites, setYourFavourites] = useState([]);

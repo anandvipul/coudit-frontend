@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import helperFunction from "../Components/HelperFunctions/HelperFunctions";
 import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
 import { DataConsumer } from "../CustomContext/dataContext";
 
@@ -22,7 +21,7 @@ const day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 function Post(props) {
   // console.log(props);
   let dateCreated = new Date(props.post.createdAt);
-  console.log(dateCreated.getDay());
+
   return (
     <DataConsumer>
       {(state) => {
@@ -75,9 +74,19 @@ function Post(props) {
               </div>
             </div>
             <div className="post-text">
-              <Link to={`/article/${props.post.slug}`}>
-                <h3 className="article-title">{props.post.title}</h3>
-              </Link>
+              <div className="seperate">
+                <Link to={`/article/${props.post.slug}`}>
+                  <h3 className="article-title">{props.post.title}</h3>
+                </Link>
+                <h3
+                  onClick={() => {
+                    state.handleDelete(props.post.slug);
+                  }}
+                >
+                  {utilityFunctions.admin.isSignedIn() ? "❌" : ""}
+                </h3>
+              </div>
+
               <p className="article-description">{props.post.description}</p>
             </div>
             <div className="post-postscript">
