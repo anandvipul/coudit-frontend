@@ -10,6 +10,8 @@ import SignUp from "./AppComponents/SignUp";
 import Header from "./AppComponents/Header";
 import UserProfile from "./AppComponents/UserProfile";
 import SignOut from "./AppComponents/SignOut";
+import Compose from "./AppComponents/Compose";
+import Settings from "./AppComponents/Settings";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -128,7 +130,12 @@ class App extends React.Component {
       });
   };
 
-  favArticleHandler = () => {};
+  favArticleHandler = (slug) => {
+    console.log(slug);
+    utilityFunctions.accessProtected.favArticleHandler(slug).then((data) => {
+      this.refresh();
+    });
+  };
 
   componentDidMount = () => {
     utilityFunctions.optionalProtection.listArticles().then((data) => {
@@ -142,6 +149,12 @@ class App extends React.Component {
   refresh = async () => {
     utilityFunctions.optionalProtection.listArticles().then((data) => {
       this.setState({ postsHome: data.articles });
+    });
+  };
+
+  handleDelete = async (slug) => {
+    utilityFunctions.accessProtected.deleteArticle(slug).then((data) => {
+      console.log(data);
     });
   };
 
@@ -162,6 +175,7 @@ class App extends React.Component {
               activeTagHandler: this.activeTagHandler,
               favArticleHandler: this.favArticleHandler,
               activeModeChanger: this.handleActiveMode,
+              handleDelete: this.handleDelete,
             }}
           >
             <Header />
@@ -192,6 +206,17 @@ class App extends React.Component {
                 exact
                 path={"/signout"}
                 element={<SignOut handleSignOut={this.handleSignOut1} />}
+              ></Route>
+              <Route exact path={"/compose"} element={<Compose />}></Route>
+              <Route
+                exact
+                path={"/settings"}
+                element={
+                  <Settings
+                    handleSignOut={this.handleSignOut}
+                    user={this.state.loggedInState.user}
+                  />
+                }
               ></Route>
             </Routes>
           </DataProvider>

@@ -51,6 +51,9 @@ let utilityFunctions = {
     },
   },
   accessProtected: {
+    currentUserLocal: () => {
+      return JSON.parse(localStorage.getItem("user"));
+    },
     currentUser: async () => {
       let currentSignedInUser = {};
       if (utilityFunctions.admin.isSignedIn()) {
