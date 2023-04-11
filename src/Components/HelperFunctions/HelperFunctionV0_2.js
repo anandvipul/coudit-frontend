@@ -25,7 +25,7 @@ let utilityFunctions = {
         .then((data) => data.json())
         .then((data) => {
           dataUser = data;
-          localStorage.setItem("user", dataUser);
+          localStorage.setItem("user", JSON.stringify(dataUser));
         });
       return dataUser;
     },
@@ -40,7 +40,10 @@ let utilityFunctions = {
         body: JSON.stringify(regBody),
       })
         .then((data) => data.json())
-        .then((data) => (dataUser = data));
+        .then((data) => {
+          dataUser = data;
+          localStorage.setItem("user", JSON.stringify(dataUser));
+        });
       return dataUser;
     },
     signOutUser: async () => {

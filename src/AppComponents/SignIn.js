@@ -1,6 +1,8 @@
 import Footer from "./Footer";
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { DataConsumer } from "../CustomContext/dataContext";
+import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -24,9 +26,9 @@ class SignIn extends React.Component {
   };
 
   render() {
-    // if (this.props.isSignedIn()) {
-    //   return <Navigate to="/" user={this.state.user} />;
-    // }
+    if (utilityFunctions.admin.isSignedIn()) {
+      return <Navigate to="/" user={this.state.user} />;
+    }
     return (
       <>
         <section className="center sign-in">

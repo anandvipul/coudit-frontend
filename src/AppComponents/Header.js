@@ -1,3 +1,4 @@
+import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
 import { DataConsumer } from "../CustomContext/dataContext";
 import { NavLink } from "react-router-dom";
 
@@ -15,13 +16,19 @@ function Header(props) {
                     Home
                   </NavLink>
                 </li>
-                <li className="link">
-                  <NavLink to="/signin">Sign In</NavLink>
-                </li>
-                <li className="link">
-                  <NavLink to="/signup">Sign Up</NavLink>
-                </li>
-                {state.data.loggedInState.state ? (
+                {utilityFunctions.admin.isSignedIn() ? (
+                  <></>
+                ) : (
+                  <>
+                    <li className="link">
+                      <NavLink to="/signin">Sign In</NavLink>
+                    </li>
+                    <li className="link">
+                      <NavLink to="/signup">Sign Up</NavLink>
+                    </li>
+                  </>
+                )}
+                {utilityFunctions.admin.isSignedIn() ? (
                   <>
                     <li className="link">
                       <NavLink to="/compose">New Post</NavLink>
@@ -33,7 +40,7 @@ function Header(props) {
                       <NavLink to="/profile">Profile</NavLink>
                     </li>
                     <li className="link">
-                      <form onSubmit={props.handleSignOut}>
+                      <form onSubmit={state.handleSignOut}>
                         <button type="submit" className="link-btn">
                           Sign Out
                         </button>

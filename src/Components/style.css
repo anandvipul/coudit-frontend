@@ -19,6 +19,11 @@ body {
   margin-right: auto;
 }
 
+.error {
+  color: red;
+  font-weight: bold;
+}
+
 *,
 *::after,
 *::before {
