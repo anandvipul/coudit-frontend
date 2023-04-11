@@ -33,7 +33,8 @@ class App extends React.Component {
 
   handleSignIn = async (body) => {
     let loggedinData = this.state.loggedInState;
-    utilityFunctions.authenticateUser(body).then(async (data) => {
+    console.log(body);
+    utilityFunctions.admin.authenticateUser(body).then(async (data) => {
       if (data.errors) {
         loggedinData.state = false;
         loggedinData.error =
@@ -45,9 +46,14 @@ class App extends React.Component {
         // await localStorage.setItem("user", JSON.stringify(data));
         loggedinData.state = true;
         loggedinData.user = data;
-        this.setState((prevState) => {
-          return { ...prevState, loggedInState: { ...loggedinData } };
-        });
+        this.setState(
+          (prevState) => {
+            return { ...prevState, loggedInState: { ...loggedinData } };
+          },
+          () => {
+            this.refresh();
+          }
+        );
       }
     });
   };
@@ -55,11 +61,14 @@ class App extends React.Component {
   handleSignUp = (body) => {
     // console.log(body);
     let loggedinData = this.state.loggedInState;
-    utilityFunctions.registerUser(body).then(async (data) => {
+    utilityFunctions.admin.registerUser(body).then(async (data) => {
       if (data.errors) {
         // console.log(data);
         loggedinData.error =
-          "email" + data.errors["email"] + "username" + data.errors["username"];
+          "email " +
+          data.errors["email"] +
+          " username" +
+          data.errors["username"];
         this.setState({
           loggedInState: { ...loggedinData },
         });
@@ -76,9 +85,16 @@ class App extends React.Component {
 
   handleSignOut = async (event) => {
     event.preventDefault();
-    utilityFunctions
-      .signOutUser()
-      .then(() => this.setState({ loggedInState: { state: false, user: {} } }));
+    utilityFunctions.admin.signOutUser().then(() =>
+      this.setState(
+        (prevState) => {
+          return { loggedInState: { state: false, user: {} } };
+        },
+        () => {
+          this.refresh();
+        }
+      )
+    );
   };
 
   activeTagHandler = async (tag) => {
@@ -108,6 +124,12 @@ class App extends React.Component {
     });
   };
 
+  refresh = async () => {
+    utilityFunctions.optionalProtection.listArticles().then((data) => {
+      this.setState({ postsHome: data.articles });
+    });
+  };
+
   render() {
     if (this.state.postsHome === null || this.state.postsHome.length === 0) {
       return <LoaderScreen />;
@@ -130,8 +152,21 @@ class App extends React.Component {
             <Header />
             <Routes>
               <Route exact path="/" element={<Home />}></Route>
-              <Route exact path="/signin" element={<SignIn />}></Route>
-              <Route exact path="/signup" element={<SignUp />}></Route>
+              <Route
+                exact
+                path="/signin"
+                element={<SignIn onSubmit={this.handleSignIn} />}
+              ></Route>
+              <Route
+                exact
+                path="/signup"
+                element={
+                  <SignUp
+                    onSubmit={this.handleSignUp}
+                    errors={this.state.loggedInState.error}
+                  />
+                }
+              ></Route>
             </Routes>
           </DataProvider>
         </BrowserRouter>
