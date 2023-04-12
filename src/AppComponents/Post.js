@@ -83,14 +83,26 @@ function Post(props) {
                     state.handleDelete(props.post.slug);
                   }}
                 >
-                  {utilityFunctions.admin.isSignedIn() ? "❌" : ""}
+                  {utilityFunctions.accessProtected.currentUserLocal().user
+                    .username === props.post.author.username ? (
+                    utilityFunctions.admin.isSignedIn() ? (
+                      "❌"
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    <></>
+                  )}
+                  {/* {utilityFunctions.admin.isSignedIn() ? "❌" : ""} */}
                 </h3>
               </div>
 
               <p className="article-description">{props.post.description}</p>
             </div>
             <div className="post-postscript">
-              <span className="postscript-item">Read More...</span>
+              <span className="postscript-item">
+                <Link to={`/article/${props.post.slug}`}>Read More...</Link>
+              </span>
               <span className="tags-item">
                 {props.post.tagList.map((item) => {
                   return <> {item} </>;
