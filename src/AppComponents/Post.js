@@ -83,9 +83,9 @@ function Post(props) {
                     state.handleDelete(props.post.slug);
                   }}
                 >
-                  {utilityFunctions.accessProtected.currentUserLocal().user
-                    .username === props.post.author.username ? (
-                    utilityFunctions.admin.isSignedIn() ? (
+                  {utilityFunctions.admin.isSignedIn() ? (
+                    utilityFunctions.accessProtected.currentUserLocal().user
+                      .username === props.post.author.username ? (
                       "❌"
                     ) : (
                       ""
