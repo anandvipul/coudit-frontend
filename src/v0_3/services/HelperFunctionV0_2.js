@@ -75,12 +75,14 @@ let utilityFunctions = {
       }
     },
     updateUser: async (body) => {
-      let regBody = { user: { ...body } };
+      const { image, username, bio, email, password } = body;
+      let regBody = { user: { image, username, bio, email, password } };
       let dataUser = {};
       if (utilityFunctions.admin.isSignedIn()) {
         await fetch("https://api.realworld.io/api/user", {
           method: "PUT",
           headers: {
+            "Content-Type": "application/json",
             authorization: `Token ${
               JSON.parse(localStorage.getItem("user")).user.token
             }`,
@@ -88,7 +90,8 @@ let utilityFunctions = {
           body: JSON.stringify(regBody),
         })
           .then((data) => data.json())
-          .then((data) => (dataUser = data));
+          .then((data) => (dataUser = data))
+          .catch((error) => (dataUser = error));
         return dataUser;
       } else {
         return { error: "not signed in" };

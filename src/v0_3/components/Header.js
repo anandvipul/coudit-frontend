@@ -6,7 +6,7 @@ function Header(props) {
   return (
     <UserContext.Consumer>
       {({ user }) => {
-        console.log(user);
+        let userInfo = user.user;
         return (
           <>
             <header className="center">

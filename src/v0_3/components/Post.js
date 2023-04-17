@@ -86,7 +86,7 @@ function Post(props) {
           >
             {utilityFunctions.admin.isSignedIn() ? (
               utilityFunctions.accessProtected.currentUserLocal().user
-                .username === props.post.username ? (
+                .username === props.post.author.username ? (
                 "❌"
               ) : (
                 ""
