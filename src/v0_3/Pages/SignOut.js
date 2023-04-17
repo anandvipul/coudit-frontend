@@ -1,4 +1,4 @@
-import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
+import utilityFunctions from "../services/HelperFunctionV0_2";
 import { Navigate } from "react-router-dom";
 
 import React from "react";
@@ -6,21 +6,17 @@ import React from "react";
 class SignOut extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: "" };
+    this.state = { loggedIn: true };
   }
 
-  static getDerivedStateFromProps = (props, state) => {
-    return { loggedIn: utilityFunctions.admin.isSignedIn() };
-  };
-
   componentDidMount = () => {
-    this.props.handleSignOut().then(() => {
+    utilityFunctions.admin.signOutUser().then(() => {
+      this.props.setUser({});
       this.setState({ loggedIn: false });
     });
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         {this.state.loggedIn ? (

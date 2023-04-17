@@ -2,6 +2,7 @@ import Footer from "../components/Footer";
 import React from "react";
 import { Navigate } from "react-router-dom";
 import utilityFunctions from "../services/HelperFunctionV0_2";
+import { useUser } from "../hooks/useUser";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -23,7 +24,10 @@ class SignIn extends React.Component {
     event.preventDefault();
 
     // this.props.onSubmit(this.state);
-    await utilityFunctions.admin.authenticateUser(this.state);
+    await utilityFunctions.admin
+      .authenticateUser(this.state)
+      .then((data) => this.props.setUser(data));
+
     this.setState({ success: true });
   };
 

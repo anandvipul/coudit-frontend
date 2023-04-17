@@ -1,11 +1,12 @@
 import utilityFunctions from "../services/HelperFunctionV0_2";
 import { UserContext } from "../Root_0_3";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Header(props) {
   return (
     <UserContext.Consumer>
-      {(state) => {
+      {({ user }) => {
+        console.log(user);
         return (
           <>
             <header className="center">
