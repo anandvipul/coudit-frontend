@@ -9,6 +9,7 @@ import Compose from "./Pages/Compose";
 import Settings from "./Pages/Settings";
 import Profile from "./Pages/Profile";
 import utilityFunctions from "./services/HelperFunctionV0_2";
+import IndependentArticle from "./Pages/IndependentArticle";
 
 export const UserContext = createContext();
 const initialState = utilityFunctions.admin.isSignedIn()
@@ -45,6 +46,10 @@ export default function Root() {
                   <Route path={"settings"} element={<Settings />} />
                   <Route path={"profile"} element={<Profile />} />
                   <Route path={"/:username"} element={<Profile />} />
+                  <Route
+                    path={"/article/:slug"}
+                    element={<IndependentArticle />}
+                  />
                 </Routes>
               </BrowserRouter>
             </>

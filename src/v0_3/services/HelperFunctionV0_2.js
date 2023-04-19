@@ -207,7 +207,11 @@ let utilityFunctions = {
       return dataArticle;
     },
     addComment: async (slug, body) => {
-      let regBody = { comment: { ...body } };
+      let regBody = {
+        comment: {
+          body: body,
+        },
+      };
 
       let dataComment = {};
       await fetch(`https://api.realworld.io/api/articles/${slug}/comments`, {

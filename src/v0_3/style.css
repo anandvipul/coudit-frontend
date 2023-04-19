@@ -34,6 +34,14 @@ body {
   justify-content: space-between;
 }
 
+.independent-article-body {
+  text-justify: inter-word;
+}
+
+.comment-container {
+  margin-top: 2rem;
+}
+
 .loading {
   /* opacity: 0.25;
   transition: opacity 200ms;
@@ -338,4 +346,26 @@ textarea {
 .loading img {
   display: block;
   width: 40%;
+}
+
+.add-comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.comment-post-btn {
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem;
+}
+
+.comment-item:nth-of-type(2n) {
+  background-color: grey;
+  color: white;
 }
