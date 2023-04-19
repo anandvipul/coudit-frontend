@@ -1,6 +1,7 @@
 import utilityFunctions from "../services/HelperFunctionV0_2";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export default function IndependentArticle(props) {
@@ -59,28 +60,35 @@ export default function IndependentArticle(props) {
         </p>
       </section>
       <section className="comment-container center safe-side">
-        <div className="add-comment">
-          <textarea
-            rows={5}
-            onChange={(event) => {
-              commentChangeHandler(event.target.value);
-            }}
-            value={comment}
-          ></textarea>
-          <button
-            className="btn comment-post-btn"
-            type="button"
-            onClick={() => {
-              utilityFunctions.accessProtected
-                .addComment(article.slug, comment)
-                .then((data) => {
-                  setChangeComment(!commentChange);
-                });
-            }}
-          >
-            Post
-          </button>
-        </div>
+        {utilityFunctions.admin.isSignedIn() ? (
+          <div className="add-comment">
+            <textarea
+              rows={5}
+              onChange={(event) => {
+                commentChangeHandler(event.target.value);
+              }}
+              value={comment}
+            ></textarea>
+            <button
+              className="btn comment-post-btn"
+              type="button"
+              onClick={() => {
+                utilityFunctions.accessProtected
+                  .addComment(article.slug, comment)
+                  .then((data) => {
+                    setChangeComment(!commentChange);
+                  });
+              }}
+            >
+              Post
+            </button>
+          </div>
+        ) : (
+          <>
+            <Link to={"/signin"}>SignIn</Link> or{" "}
+            <Link to={"/signup"}>SignUp</Link> to Comment !
+          </>
+        )}
         <div className="prev-comment">
           {listComment.length ? (
             <>
