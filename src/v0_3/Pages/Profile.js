@@ -3,6 +3,7 @@ import { UserContext } from "../Root_0_3";
 import Post from "../components/Post";
 import { useParams } from "react-router-dom";
 import utilityFunctions from "../services/HelperFunctionV0_2";
+import LoaderScreen from "./LoaderScreen";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -18,8 +19,6 @@ const Profile = () => {
     username = username.substring(1);
   }
 
-  console.log(username);
-
   useEffect(() => {
     if (activeTab === "self") {
       utilityFunctions.optionalProtection
@@ -34,13 +33,12 @@ const Profile = () => {
           setPosts(data.articles);
         });
     }
-  }, [activeTab]);
+  }, [activeTab, username]);
 
   useEffect(() => {
     utilityFunctions.optionalProtection.getProfile(username).then((data) => {
       setProfile(data.profile);
     });
-    console.log(profile);
   }, [username, triger]);
 
   return (
@@ -91,7 +89,23 @@ const Profile = () => {
             </h4>
           </div>
           <div className="post-container">
-            {posts.map((item, index) => {
+            {posts.length ? (
+              posts.map((item, index) => {
+                return (
+                  <>
+                    <Post
+                      key={index}
+                      post={item}
+                      triger={triger}
+                      setTriger={setTriger}
+                    />
+                  </>
+                );
+              })
+            ) : (
+              <LoaderScreen />
+            )}
+            {/* {posts.map((item, index) => {
               return (
                 <>
                   <Post
@@ -102,7 +116,7 @@ const Profile = () => {
                   />
                 </>
               );
-            })}
+            })} */}
           </div>
         </section>
       </main>

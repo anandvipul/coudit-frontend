@@ -1,3 +1,4 @@
+import LoaderScreen from "../Pages/LoaderScreen";
 import Aside from "./Aside";
 import Post from "./Post";
 import React from "react";
@@ -34,17 +35,21 @@ function Main({
           </h4>
         </div>
         <div className="post-container">
-          {renderPost.map((item, index) => {
-            return (
-              <Post
-                key={index}
-                post={item}
-                triger={triger}
-                setTriger={setTriger}
-                // favArticleHandler={favArticleHandler}
-              />
-            );
-          })}
+          {renderPost.length ? (
+            renderPost.map((item, index) => {
+              return (
+                <Post
+                  key={index}
+                  post={item}
+                  triger={triger}
+                  setTriger={setTriger}
+                  // favArticleHandler={favArticleHandler}
+                />
+              );
+            })
+          ) : (
+            <LoaderScreen />
+          )}
         </div>
       </section>
       <Aside

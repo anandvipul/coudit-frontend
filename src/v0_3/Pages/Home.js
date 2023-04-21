@@ -1,6 +1,6 @@
 import utilityFunctions from "../services/HelperFunctionV0_2";
 import Footer from "../components/Footer";
-import { UserContext } from "../Root_0_3";
+import LoaderScreen from "./LoaderScreen";
 import React, { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUser";
 import Main from "../components/Main";
@@ -48,7 +48,7 @@ function Home() {
 
   return (
     <>
-      {posts.length ? (
+      {/* {posts.length ? (
         <>
           <Hero title={"Conduit"} sub={"A place to Share Your Knowlege"} />
           <Main
@@ -64,8 +64,20 @@ function Home() {
           <Footer />
         </>
       ) : (
-        <>Loading</>
-      )}
+        <LoaderScreen />
+      )} */}
+      <Hero title={"Conduit"} sub={"A place to Share Your Knowlege"} />
+      <Main
+        activeMode={mode}
+        activeModeChanger={setMode}
+        activeTag={tag}
+        activeTagHandler={setTag}
+        renderPost={posts}
+        renderTags={tags}
+        triger={triger}
+        setTriger={setTriger}
+      />
+      <Footer />
     </>
   );
 }
