@@ -37,9 +37,9 @@ function Post(props) {
             >
               <span className="author-name">{props.post.author.username}</span>
             </Link>
-            <span className="article-date">{`${dateCreated.getDay()} ${
+            <span className="article-date">{` ${
               day[dateCreated.getDay()]
-            } ${
+            } ${dateCreated.getDay()} ${
               month[dateCreated.getMonth()]
             }-${dateCreated.getFullYear()}`}</span>
           </div>
