@@ -150,6 +150,9 @@ let utilityFunctions = {
       return dataResult;
     },
     createArticle: async (body) => {
+      body.tagList = body.tagList
+        ? (body.tagList = body.tagList.split(";"))
+        : "";
       let regBody = { article: { ...body } };
 
       let dataArticle = {};

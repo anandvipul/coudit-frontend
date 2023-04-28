@@ -10,7 +10,7 @@ class Compose extends React.Component {
       title: "",
       description: "",
       body: "",
-      tags: "",
+      tagList: "",
       submitted: false,
     };
   }
@@ -77,9 +77,9 @@ class Compose extends React.Component {
                 required
                 className="input-field"
                 type="text"
-                name="tags"
-                placeholder="Enter tags"
-                value={this.state.tags}
+                name="tagList"
+                placeholder="Enter tagList seperated by ;"
+                value={this.state.tagList}
                 onChange={(event) => {
                   this.handleChange(event);
                 }}
