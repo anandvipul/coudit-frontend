@@ -5,6 +5,7 @@ import SignIn from "./Pages/SignIn";
 import Header from "./components/Header";
 import Home from "./Pages/Home";
 import SignOut from "./Pages/SignOut";
+import SignUp from "./Pages/SignUp";
 import Compose from "./Pages/Compose";
 import Settings from "./Pages/Settings";
 import Profile from "./Pages/Profile";
@@ -41,6 +42,10 @@ export default function Root() {
                   <Route
                     path={"signout"}
                     element={<SignOut setUser={setUser} />}
+                  />
+                  <Route
+                    path={"signup"}
+                    element={<SignUp setUser={setUser} />}
                   />
                   <Route path={"compose"} element={<Compose />} />
                   <Route path={"settings"} element={<Settings />} />

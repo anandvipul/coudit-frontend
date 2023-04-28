@@ -15,7 +15,7 @@ let utilityFunctions = {
     authenticateUser: async (body) => {
       let regBody = { user: { ...body } };
       let dataUser = {};
-      await fetch("https://api.realworld.io/api/users/login", {
+      await fetch("http://localhost:4001/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ let utilityFunctions = {
     registerUser: async (body) => {
       let regBody = { user: { ...body } };
       let dataUser = {};
-      await fetch("https://api.realworld.io/api/users", {
+      await fetch("http://localhost:4001/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ let utilityFunctions = {
     currentUser: async () => {
       let currentSignedInUser = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch("https://api.realworld.io/api/user/", {
+        await fetch("http://localhost:4001/api/user/", {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -79,7 +79,7 @@ let utilityFunctions = {
       let regBody = { user: { image, username, bio, email, password } };
       let dataUser = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch("https://api.realworld.io/api/user", {
+        await fetch("http://localhost:4001/api/user", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -104,34 +104,28 @@ let utilityFunctions = {
       let dataResult = {};
       //   If The user is being followed then Unfoloow
       if (userData.profile.following) {
-        await fetch(
-          `https://api.realworld.io/api/profiles/${username}/follow`,
-          {
-            method: "DELETE",
-            headers: {
-              authorization: `Token ${
-                JSON.parse(localStorage.getItem("user")).user.token
-              }`,
-            },
-          }
-        )
+        await fetch(`http://localhost:4001/api/profiles/${username}/follow`, {
+          method: "DELETE",
+          headers: {
+            authorization: `Token ${
+              JSON.parse(localStorage.getItem("user")).user.token
+            }`,
+          },
+        })
           .then((data) => data.json())
           .then((data) => {
             dataResult = data;
           });
         return dataResult;
       } else {
-        await fetch(
-          `https://api.realworld.io/api/profiles/${username}/follow`,
-          {
-            method: "POST",
-            headers: {
-              authorization: `Token ${
-                JSON.parse(localStorage.getItem("user")).user.token
-              }`,
-            },
-          }
-        )
+        await fetch(`http://localhost:4001/api/profiles/${username}/follow`, {
+          method: "POST",
+          headers: {
+            authorization: `Token ${
+              JSON.parse(localStorage.getItem("user")).user.token
+            }`,
+          },
+        })
           .then((data) => data.json())
           .then((data) => {
             dataResult = data;
@@ -141,7 +135,7 @@ let utilityFunctions = {
     },
     feedArticles: async () => {
       let dataResult = [];
-      await fetch("https://api.realworld.io/api/articles/?limit=10&offset=0", {
+      await fetch("http://localhost:4001/api/articles/?limit=10&offset=0", {
         method: "GET",
         headers: {
           authorization: `Token ${
@@ -159,7 +153,7 @@ let utilityFunctions = {
       let regBody = { article: { ...body } };
 
       let dataArticle = {};
-      await fetch("https://api.realworld.io/api/articles", {
+      await fetch("http://localhost:4001/api/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -177,7 +171,7 @@ let utilityFunctions = {
     updateArticle: async (body, slug) => {
       let regBody = { article: { ...body } };
       let dataArticle = {};
-      await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+      await fetch(`http://localhost:4001/api/articles/${slug}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -194,7 +188,7 @@ let utilityFunctions = {
     },
     deleteArticle: async (slug) => {
       let dataArticle = {};
-      await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+      await fetch(`http://localhost:4001/api/articles/${slug}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -214,7 +208,7 @@ let utilityFunctions = {
       };
 
       let dataComment = {};
-      await fetch(`https://api.realworld.io/api/articles/${slug}/comments`, {
+      await fetch(`http://localhost:4001/api/articles/${slug}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -231,17 +225,14 @@ let utilityFunctions = {
     },
     deleteComment: async (slug, id) => {
       let dataComment = {};
-      await fetch(
-        `https://api.realworld.io/api/articles/${slug}/comments/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: `Token ${
-              JSON.parse(localStorage.getItem("user")).user.token
-            }`,
-          },
-        }
-      )
+      await fetch(`http://localhost:4001/api/articles/${slug}/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Token ${
+            JSON.parse(localStorage.getItem("user")).user.token
+          }`,
+        },
+      })
         .then((data) => data.json())
         .then((data) => (dataComment = data));
       return dataComment;
@@ -253,7 +244,7 @@ let utilityFunctions = {
       let dataResult = {};
       //   If The user is being followed then Unfoloow
       if (articleData.article.favorited) {
-        await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}/favorite`, {
           method: "DELETE",
           headers: {
             authorization: `Token ${
@@ -267,7 +258,7 @@ let utilityFunctions = {
           });
         return dataResult;
       } else {
-        await fetch(`https://api.realworld.io/api/articles/${slug}/favorite`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}/favorite`, {
           method: "POST",
           headers: {
             authorization: `Token ${
@@ -287,7 +278,7 @@ let utilityFunctions = {
     getProfile: async (username) => {
       let profileData = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch(`https://api.realworld.io/api/profiles/${username}`, {
+        await fetch(`http://localhost:4001/api/profiles/${username}`, {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -299,7 +290,7 @@ let utilityFunctions = {
           .then((data) => (profileData = data));
         return profileData;
       } else {
-        await fetch(`https://api.realworld.io/api/profiles/${username}`, {
+        await fetch(`http://localhost:4001/api/profiles/${username}`, {
           method: "GET",
         })
           .then((data) => data.json())
@@ -310,7 +301,7 @@ let utilityFunctions = {
     listArticles: async () => {
       let articlesData = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch(`https://api.realworld.io/api/articles?limit=10&offset=0`, {
+        await fetch(`http://localhost:4001/api/articles?limit=10&offset=0`, {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -322,7 +313,7 @@ let utilityFunctions = {
           .then((data) => (articlesData = data));
         return articlesData;
       } else {
-        await fetch(`https://api.realworld.io/api/articles?limit=10&offset=0`, {
+        await fetch(`http://localhost:4001/api/articles?limit=10&offset=0`, {
           method: "GET",
         })
           .then((data) => data.json())
@@ -334,7 +325,7 @@ let utilityFunctions = {
       let articlesData = {};
       if (utilityFunctions.admin.isSignedIn()) {
         await fetch(
-          `https://api.realworld.io/api/articles?tag=${tag}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?tag=${tag}&limit=10&offset=0`,
           {
             method: "GET",
             headers: {
@@ -349,7 +340,7 @@ let utilityFunctions = {
         return articlesData;
       } else {
         await fetch(
-          `https://api.realworld.io/api/articles?tag=${tag}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?tag=${tag}&limit=10&offset=0`,
           {
             method: "GET",
           }
@@ -363,7 +354,7 @@ let utilityFunctions = {
       let articlesData = {};
       if (utilityFunctions.admin.isSignedIn()) {
         await fetch(
-          `https://api.realworld.io/api/articles?author=${author}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?author=${author}&limit=10&offset=0`,
           {
             method: "GET",
             headers: {
@@ -378,7 +369,7 @@ let utilityFunctions = {
         return articlesData;
       } else {
         await fetch(
-          `https://api.realworld.io/api/articles?author=${author}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?author=${author}&limit=10&offset=0`,
           {
             method: "GET",
           }
@@ -392,7 +383,7 @@ let utilityFunctions = {
       let articlesData = {};
       if (utilityFunctions.admin.isSignedIn()) {
         await fetch(
-          `https://api.realworld.io/api/articles?favorited=${fav}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?favorited=${fav}&limit=10&offset=0`,
           {
             method: "GET",
             headers: {
@@ -407,7 +398,7 @@ let utilityFunctions = {
         return articlesData;
       } else {
         await fetch(
-          `https://api.realworld.io/api/articles?favorited=${fav}&limit=10&offset=0`,
+          `http://localhost:4001/api/articles?favorited=${fav}&limit=10&offset=0`,
           {
             method: "GET",
           }
@@ -420,7 +411,7 @@ let utilityFunctions = {
     getArticle: async (slug) => {
       let articleData = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}`, {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -432,7 +423,7 @@ let utilityFunctions = {
           .then((data) => (articleData = data));
         return articleData;
       } else {
-        await fetch(`https://api.realworld.io/api/articles/${slug}`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}`, {
           method: "GET",
         })
           .then((data) => data.json())
@@ -443,7 +434,7 @@ let utilityFunctions = {
     getTags: async () => {
       let tagsData = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch(`https://api.realworld.io/api/tags`, {
+        await fetch(`http://localhost:4001/api/tags`, {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -455,7 +446,7 @@ let utilityFunctions = {
           .then((data) => (tagsData = data));
         return tagsData;
       } else {
-        await fetch(`https://api.realworld.io/api/tags`, {
+        await fetch(`http://localhost:4001/api/tags`, {
           method: "GET",
         })
           .then((data) => data.json())
@@ -466,7 +457,7 @@ let utilityFunctions = {
     getComments: async (slug) => {
       let commentsData = {};
       if (utilityFunctions.admin.isSignedIn()) {
-        await fetch(`https://api.realworld.io/api/articles/${slug}/comments`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}/comments`, {
           method: "GET",
           headers: {
             authorization: `Token ${
@@ -478,7 +469,7 @@ let utilityFunctions = {
           .then((data) => (commentsData = data));
         return commentsData;
       } else {
-        await fetch(`https://api.realworld.io/api/articles/${slug}/comments`, {
+        await fetch(`http://localhost:4001/api/articles/${slug}/comments`, {
           method: "GET",
         })
           .then((data) => data.json())
