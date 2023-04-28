@@ -1,9 +1,8 @@
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import React from "react";
 
 import { Navigate } from "react-router-dom";
-import utilityFunctions from "../Components/HelperFunctions/HelperFunctionV0_2";
-import { DataProvider } from "../CustomContext/dataContext";
+import utilityFunctions from "../services/HelperFunctionV0_2";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -12,6 +11,7 @@ class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
+      success: false,
     };
   }
 
@@ -21,10 +21,13 @@ class SignUp extends React.Component {
     });
   };
 
-  handleSubmitObject = (event) => {
+  handleSubmitObject = async (event) => {
     event.preventDefault();
 
-    this.props.onSubmit(this.state);
+    await utilityFunctions.admin
+      .registerUser(this.state)
+      .then((data) => this.props.setUser(data));
+    this.setState({ success: true });
   };
 
   render() {
