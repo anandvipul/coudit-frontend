@@ -19,21 +19,6 @@ body {
   margin-right: auto;
 }
 
-.error {
-  color: red;
-  font-weight: bold;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-.seperate {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 *,
 *::after,
 *::before {
@@ -317,16 +302,4 @@ textarea {
     grid-template-columns: 1fr;
     margin-top: 1rem;
   }
-}
-
-.loading {
-  display: grid;
-  height: 100vh;
-  place-items: center;
-  background-color: black;
-}
-
-.loading img {
-  display: block;
-  width: 40%;
 }
