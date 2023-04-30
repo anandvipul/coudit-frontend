@@ -1,8 +1,7 @@
 import React from "react";
-import PrivateHeader from "./PrivateHeader";
 
 import { Navigate } from "react-router-dom";
-import helperFunction from "../../HelperFunctions/HelperFunctions";
+import utilityFunctions from "../services/HelperFunctionV0_2";
 
 class Settings extends React.Component {
   constructor(props) {
@@ -20,18 +19,21 @@ class Settings extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    helperFunction.updateProfile(this.state).then((data) => {
-      this.props.handleSignOut(event);
+    utilityFunctions.accessProtected.updateUser(this.state).then((data) => {
+      this.setState({ isSubmitted: true });
     });
   };
 
   componentDidMount = () => {
-    this.setState({
-      image: this.props.user.image,
-      bio: this.props.user.bio,
-      email: this.props.user.email,
-      username: this.props.user.username,
-      password: this.props.user.password,
+    utilityFunctions.accessProtected.currentUser().then((data) => {
+      console.log(data);
+      let user = data.user;
+      this.setState({
+        username: user.username,
+        email: user.email,
+        bio: user.bio,
+        image: user.image,
+      });
     });
   };
 
@@ -41,11 +43,10 @@ class Settings extends React.Component {
       //     return { isSubmitted: false };
       //   });
 
-      return <Navigate to="/" replace />;
+      return <Navigate to="/signout" replace />;
     } else {
       return (
         <>
-          <PrivateHeader handleSignOut={this.props.handleSignOut} />
           <section className="center">
             <div className="form-container center">
               <h1 style={{ textAlign: "center" }}>Your Settings</h1>

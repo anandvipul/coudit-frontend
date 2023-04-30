@@ -1,14 +1,17 @@
-import Footer from "../Elements/Footer";
+import Footer from "../components/Footer";
 import React from "react";
-import { Navigate } from "react-router-dom";
-import Header from "../Elements/Header";
 
-class SignIn extends React.Component {
+import { Navigate } from "react-router-dom";
+import utilityFunctions from "../services/HelperFunctionV0_2";
+
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       email: "",
       password: "",
+      success: false,
     };
   }
 
@@ -18,25 +21,37 @@ class SignIn extends React.Component {
     });
   };
 
-  handleSubmitObject = (event) => {
+  handleSubmitObject = async (event) => {
     event.preventDefault();
 
-    this.props.onSubmit(this.state);
+    await utilityFunctions.admin
+      .registerUser(this.state)
+      .then((data) => this.props.setUser(data));
+    this.setState({ success: true });
   };
 
   render() {
-    if (this.props.isSignedIn()) {
+    if (utilityFunctions.admin.isSignedIn()) {
       return <Navigate to="/" user={this.state.user} />;
     }
     return (
       <>
-        <Header />
         <section className="center sign-in">
-          <h1 style={{ marginBottom: 0, marginTop: "3rem" }}>Sign in</h1>
-          <p style={{ marginBottom: "2rem" }}>need an account ?</p>
+          <h1 style={{ marginBottom: 0, marginTop: "3rem" }}>Sign Up</h1>
+          <p style={{ marginBottom: "2rem" }}>Have an Account ?</p>
           <div className="form-container center">
             <form onSubmit={this.handleSubmitObject}>
-              <span>{this.props.errors}</span>
+              <span className="error">{this.props.errors}</span>
+              <input
+                className="input-field"
+                type="text"
+                name="username"
+                placeholder="Name"
+                value={this.state.name}
+                onChange={(event) => {
+                  this.handleChange(event);
+                }}
+              />
               <input
                 className="input-field"
                 type="email"
@@ -57,8 +72,15 @@ class SignIn extends React.Component {
                   this.handleChange(event);
                 }}
               />
+              {/* {data.data.loggedInState.error ? (
+                      <span className="error">
+                        {data.data.loggedInState.error}
+                      </span>
+                    ) : (
+                      <></>
+                    )} */}
               <button type="submit" className="btn">
-                Sign in
+                Sign Up
               </button>
             </form>
           </div>
@@ -71,4 +93,4 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+export default SignUp;

@@ -1,6 +1,6 @@
 import React from "react";
-import PrivateHeader from "./PrivateHeader";
-import helperFunction from "../../HelperFunctions/HelperFunctions";
+
+import utilityFunctions from "../services/HelperFunctionV0_2";
 import { Navigate } from "react-router-dom";
 
 class Compose extends React.Component {
@@ -23,7 +23,7 @@ class Compose extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    helperFunction.publishArticle(this.state).then((data) => {
+    utilityFunctions.accessProtected.createArticle(this.state).then((data) => {
       if (data !== undefined) {
         this.setState({ submitted: true });
       }
@@ -32,14 +32,10 @@ class Compose extends React.Component {
 
   render() {
     if (this.state.submitted === true) {
-      this.setState({
-        submitted: false,
-      });
       return <Navigate to={"/"} />;
     }
     return (
       <>
-        <PrivateHeader handleSignOut={this.props.handleSignOut} />
         <section className="center ">
           <div className="form-container center">
             <h1 style={{ textAlign: "center" }}>Compose An Article !</h1>
